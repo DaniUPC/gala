@@ -982,9 +982,9 @@ class Rag(Graph):
                                         self.merge_queue.peek()[0] < threshold:
             merge_priority, _, n1, n2 = self.merge_queue.pop()
             self.update_frozen_sets(n1, n2)
-            self.merge_nodes(n1, n2, merge_priority)
+            n3 = self.merge_nodes(n1, n2, merge_priority)
             if save_history:
-                history.append((n1,n2))
+                history.append((n1, n2, n3, merge_priority))
                 scores.append(merge_priority)
                 evaluation.append(
                     (self.number_of_nodes()-1, self.split_vi())
@@ -1035,9 +1035,9 @@ class Rag(Graph):
                 break
             merge_priority, _, n1, n2 = self.merge_queue.pop()
             i += 1
-            self.merge_nodes(n1, n2, merge_priority)
+            n3 = self.merge_nodes(n1, n2, merge_priority)
             if save_history:
-                history.append((n1, n2))
+                history.append((n1, n2, n3, merge_priority))
                 evaluation.append(
                     (self.number_of_nodes()-1, self.split_vi())
                 )
